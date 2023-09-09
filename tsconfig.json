@@ -1,0 +1,19 @@
+{
+  "ts-node": {
+    "files": true
+  },
+  "compilerOptions": {
+    "target": "ES2016",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "outDir": "./dist",
+    "declaration": true,
+    "typeRoots": ["./index.d.ts", "./node_modules/@types"]
+  },
+  "exclude": ["node_modules", "examples", "dist"]
+}
