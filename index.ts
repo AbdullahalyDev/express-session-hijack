@@ -1,3 +1,3 @@
-import  SessionClass from "./classes/session.class";
+import SessionClass from "./classes/session.class";
 
-export default SessionClass.config;
+export default SessionClass.init;

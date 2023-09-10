@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const cookie = require("cookie-parser");
-const hijack = require("../dist/index").default; // project importing (in your file use "session-hijack")
+const hijack = require("../dist/index").default; // project importing (in your file use "express-session-hijack")
 
 const application = express();
 

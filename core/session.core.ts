@@ -24,11 +24,7 @@ export default class SessionCore {
       try {
         lodash(data).forOwn(function (value, key) {
           if (!lodash(request.session).has(key)) {
-            try {
-              request.session[key] = value;
-            } catch (error) {
-              reject(error);
-            }
+            request.session[key] = value;
           }
         });
 

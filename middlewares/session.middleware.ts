@@ -1,11 +1,10 @@
 import express from "express";
-import session from "express-session";
 
 import SessionCore from "../core/session.core";
 import SessionError from "../errors/session.error";
 
 export default class SessionMiddleware {
-  static initAutoRegenerateMiddleware(request: express.Request) {
+  static initRegeneratorMiddleware(request: express.Request) {
     return new Promise(function (resolve, reject) {
       const data = request.session;
 

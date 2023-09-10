@@ -1,4 +1,4 @@
-# session-hijack
+# express-session-hijack
 
 this package helps developers to protect session and keep it safe by re generate session with same payload (data)
 
@@ -9,11 +9,11 @@ this package helps developers to protect session and keep it safe by re generate
 
 # Installation
 ```cmd
-npm i --save session-hijack
+npm install --save express-session-hijack
 ```
 
 # Usage
-after install package on your express project, you can use it as middleware or function. this examples will show how can you use `session-hijack` in your project
+after install package on your express project, you can use it as middleware or function. this examples will show how can you use `express-session-hijack` in your project
 
 ## use it to regenrate every request
 
@@ -21,7 +21,7 @@ after install package on your express project, you can use it as middleware or f
 const express = require("express");
 const session = require("express-session");
 const cookie = require("cookie-parser");
-const hijack = require("../dist/index").default; // project importing (in your file use "session-hijack")
+const hijack = require("../dist/index").default; // project importing (in your file use "express-session-hijack")
 
 const application = express();
 
@@ -53,7 +53,7 @@ application.listen(3000, function () {
 const express = require("express");
 const session = require("express-session");
 const cookie = require("cookie-parser");
-const hijack = require("../dist/index").default; // project importing (in your file use "session-hijack")
+const hijack = require("../dist/index").default; // project importing (in your file use "express-session-hijack")
 
 const application = express();
 
@@ -87,7 +87,7 @@ application.listen(3000, function () {
 const express = require("express");
 const session = require("express-session");
 const cookie = require("cookie-parser");
-const hijack = require("../dist/index").default; // project importing (in your file use "session-hijack")
+const hijack = require("../dist/index").default; // project importing (in your file use "express-session-hijack")
 
 const application = express();
 
@@ -121,7 +121,7 @@ application.listen(3000, function () {
 # Error Handling
 ```js
 application.use(function (error, request, response, next) {
-  if (error.name === "SessionHijackError") {
+  if (error.name === "SessionHijackRegenerateError") {
     response.status(403).send("failed to reload session");
   } else return next();
 });
@@ -130,11 +130,11 @@ application.use(function (error, request, response, next) {
 
 # Contributing
 
-Contributions are welcome! If you would like to contribute to this project, please fork the repository and submit a [pull request](https://github.com/AbdullahalyDev/session-hijack/pulls).
+Contributions are welcome! If you would like to contribute to this project, please fork the repository and submit a [pull request](https://github.com/AbdullahalyDev/express-session-hijack/pulls).
 
 # Issues
 
-If you encounter any issues with this application, please submit a bug report on the GitHub [Issues page](https://github.com/AbdullahalyDev/session-hijack/issues).
+If you encounter any issues with this application, please submit a bug report on the GitHub [Issues page](https://github.com/AbdullahalyDev/express-session-hijack/issues).
 
 # License
 

@@ -1,14 +1,15 @@
 {
-  "name": "session-hijack",
-  "version": "1.0.0",
+  "name": "express-session-hijack",
+  "version": "1.0.1",
   "description": "this package helps developers to protect session and keep it safe by re generate session with same payload",
-  "main": "./dist/index.js",
+  "main": "./lib/index.js",
   "scripts": {
+    "typescript:build": "tsc",
+    "eslint:lint": "eslint ./ --fix",
     "example:1": "node ./examples/example.1.js",
     "example:2": "node ./examples/example.2.js",
     "example:3": "node ./examples/example.3.js",
-    "example:4": "node ./examples/example.4.js",
-    "eslint:lint": "eslint ./ --fix"
+    "example:4": "node ./examples/example.4.js"
   },
   "keywords": [
     "express",
@@ -16,6 +17,7 @@
     "securtiy",
     "session"
   ],
+  "repository": "https://github.com/AbdullahalyDev/express-session-hijack",
   "author": "Abdullah Aly",
   "license": "MIT",
   "dependencies": {
