@@ -15,11 +15,11 @@ application.use(
     cookie: { maxAge: 604800000 },
   })
 );
-console.log(hijack)
+
 // regenerate session token every reqeust
 application.use(hijack());
 
-application.get("/", function (request, response) {
+application.get("/", async function (request, response) {
   // some logic here
   response.status(200).send("Hello!");
 });

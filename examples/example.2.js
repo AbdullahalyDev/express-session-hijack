@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const cookie = require("cookie-parser");
-const hijack = require("../dist/index"); // project importing (in your file use "express-session-hijack")
+const hijack = require("../lib/index"); // project importing (in your file use "express-session-hijack")
 
 const application = express();
 
@@ -17,7 +17,7 @@ application.use(
 );
 
 application.get("/", function (request, response) {
-  response.send("Hello!");
+  response.status(200).send("Hello!");
 });
 
 // regenerate session token every reqeust

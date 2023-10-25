@@ -7,27 +7,29 @@ const application = express();
 
 application.use(cookie());
 
-// application.use(
-//   session({
-//     secret: "keyboard cat",
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 604800000 },
-//   })
-// );
-
-// regenerate session token every reqeust
-application.use(hijack());
+application.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 604800000 },
+  })
+);
 
 application.get("/", function (request, response) {
-  // some logic here
   response.status(200).send("Hello!");
 });
 
-application.use(function (error, request, response, next) {
-  if (error.name === "SessionRegenerateError") {
-    response.status(403).send("failed to reload session");
-  } else return next(error);
+application.get("/auth/login", async function (request, response) {
+  // regenerate session token every success (2xx) request
+  const username = await (async function () {
+    return "Abdullah";
+  })()
+
+  await hijack()(request);
+
+  response.status(200).send("authentication successfully, " + username);
+
 });
 
 application.listen(3000, function () {

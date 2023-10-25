@@ -1,26 +1,37 @@
 import express from "express";
+import lodash from "lodash";
 
 import SessionCore from "../core/session.core";
 import SessionError from "../errors/session.error";
 
 export default class SessionMiddleware {
-  static initRegeneratorMiddleware(request: express.Request) {
-    return new Promise(function (resolve, reject) {
-      const data = request.session;
+  static initMiddleware(request: express.Request) {
+    return new Promise(async function (resolve, reject) {
+      const data = { ...request.session };
 
-      SessionCore.regenerate(request)
-        .then(() => {
-          SessionCore.transfer(request, data)
-            .then(function () {
-              resolve(true);
-            })
-            .catch(function () {
-              reject(new SessionError());
-            });
-        })
-        .catch(function () {
+      await SessionCore.regenerate(request).catch(function () {
+        reject(new SessionError());
+      });
+
+      await SessionCore.transfer(request, data).catch(function () {
+        reject(new SessionError());
+      });
+
+      await SessionCore.save(request).catch(function () {
+        reject(new SessionError());
+      });
+
+      await SessionCore.reload(request).catch(function () {
+        reject(new SessionError());
+      });
+
+      for (const key in data) {
+        if (!lodash(request.session).has(key)) {
           reject(new SessionError());
-        });
+          break;
+        } else continue;
+      }
+
+      resolve(true);
     });
-  }
-}
+  }}
