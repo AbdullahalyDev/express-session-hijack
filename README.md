@@ -19,65 +19,32 @@ npm install --save express-session-hijack
 after install package on your express project, you can use it as middleware or function. this examples will show how can you use `express-session-hijack` in your project
 
 ```js
-const express = require("express");
-const session = require("express-session");
-const cookie = require("cookie-parser");
-const hijack = require("../dist/index").default; // project importing (in your file use "express-session-hijack")
-
-const application = express();
-
-// required to parse cookies
-application.use(cookie());
-
-application.use(
-  session({
-    //...
-  })
-);
-
 // regenerate session token every reqeust
 application.use(hijack());
 
 application.get("/", function (request, response) {
   response.status(200).send("Hello!");
 });
-
-application.listen(3000, function () {
-  console.log("application listen to 3000");
-});
 ```
+
 ```js
-// regenerate session token every reqeust
+// regenerate session token every request this endpoint
 application.get("/auth/login", hijack(), function (request, response) {
   response.status(200).send("authentication successfully");
 });
 ```
 
 ```js
-application.get("/auth/login", async function (request, response) {
-  const user = db.getUser();
-
-  if (!user) {
-    return;
-  }
-
-  await hijack(async function (/* request, response */) {
-    const username = await (async function () {
-      return "Abdullah";
-    })();
-
+application.get("/auth/login", async function (request, response, next) {
+  await hijack(async function (request, response) {
     response.status(200).send("authentication successfully, " + username);
-  })(request);
+  })(request, response, next);
 });
 ```
 
 ```js
-application.get("/auth/login", async function (request, response) {
-  const username = await (async function () {
-    return "Abdullah";
-  })();
-
-  await hijack()(request);
+application.get("/auth/login", async function (request, response, next) {
+  await hijack()(request, response, next);
 
   response.status(200).send("authentication successfully, " + username);
 });
@@ -89,7 +56,7 @@ application.get("/auth/login", async function (request, response) {
 application.use(function (error, request, response, next) {
   if (error.name === "SessionRegenerateError") {
     response.status(403).send("failed to reload session");
-  } else return next();
+  } else return next(error);
 });
 ```
 
