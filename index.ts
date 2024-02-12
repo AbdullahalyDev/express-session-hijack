@@ -1,3 +1,3 @@
-import SessionClass from "./classes/session.class";
+import SessionMiddleware from "./middlewares/session.middleware";
 
-export default SessionClass.init;
+export default SessionMiddleware.initializeSessionRefresherMiddleware;
